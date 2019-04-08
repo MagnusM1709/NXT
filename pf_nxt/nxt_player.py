@@ -453,7 +453,7 @@ class Nxt_Player(object):
         song = self.songs.get(song_name)
         if not self.playing_song:
             self.playing_song = True
-            print 'playing {} now...'.format(song['title'])
+            print('playing {} now...'.format(song['title']))
             tones = self.freqs
             for i in range(times):
                 tact_count = len(song['tacts'])
@@ -468,16 +468,16 @@ class Nxt_Player(object):
                             length = note[1]
                             self.brick.play_tone_and_wait(freq, length * v)
                         else:
-                            print 'got interrupt, stopped playing...'
+                            print('got interrupt, stopped playing...')
                             self.playing_song = False
                             return
 
             self.playing_song = False
             self.curr_tact = 0
-            print 'done playing...'
+            print('done playing...')
             return
         else:
-            print 'Error: Already playing...'
+            print('Error: Already playing...')
             return
 
 
