@@ -95,6 +95,6 @@ class AutoPilot(object):
 
         # lots of transitions found, cry for help...
         if counter > self.transition_count:
-            print 'CRYING FOR HELP NOW!!!'
+            print('CRYING FOR HELP NOW!!!')
             self.transitions = []
             self.running = False
