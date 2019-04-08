@@ -55,9 +55,9 @@ class PadController(object):
                 if event.type == pygame.QUIT:
                     done = True
                 if event.type == pygame.JOYBUTTONDOWN:
-                    print 'buttton pressed'
+                    print('buttton pressed')
                 if event.type == pygame.JOYBUTTONUP:
-                    print 'buttton released'
+                    print('buttton released')
 
             if self.robo.calibrating:
                 continue
