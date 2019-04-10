@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from nxt.motor import *
+from nxt. motor import *
 from nxt.sensor import *
 from nxt.bluesock import BlueSock
 from nxt.locator import Method, find_one_brick
@@ -173,6 +173,7 @@ class ScoutRobo(object):
 
 
     def move(self, forward, turn, tower=0):
+        print(forward, turn)
         '''
         move robot based on forward and turn values which should be between -1
         and 1
@@ -196,9 +197,9 @@ class ScoutRobo(object):
         # check if forward/backward has to be performed
         # 60 is minimum power and maximum is 127
         if forward < -STEERING_MARGIN:
-            self.go_forward(power=(-60 + 67 * forward))
+            self.go_forward(power= int(-60 + 67 * forward))
         if forward > STEERING_MARGIN:
-            self.go_forward(power=(60 + 67 * forward))
+            self.go_forward(power= int(60 + 67 * forward))
 
         tacho_cur = self.steering_motor.get_tacho().tacho_count
 
@@ -209,7 +210,7 @@ class ScoutRobo(object):
             # go to middle position
             print('To middle')
             tacho_diff = self.tacho_middle - tacho_cur
-            tacho_steer = not abs(tacho_diff) < 10
+            tacho_steer = not abs(tacho_diff) < 25
             if tacho_diff > 0 and tacho_steer:
                 self.steering_motor.turn(
                     power=STEERING_POWER,
@@ -225,12 +226,12 @@ class ScoutRobo(object):
             # avoid oversteering, only use fraction of steering_interval
             tacho_desired = self.tacho_middle + -turn * abs(self.steering_interval) * STEERING_DAMPENING
             tacho_diff = tacho_cur - tacho_desired
-            if tacho_diff < 0:
+            if tacho_diff < 0 and not self.sensors["touch_left"].get_sample():
                 self.steering_motor.turn(
                     power=STEERING_POWER,
                     tacho_units=-tacho_diff
                 )
-            elif tacho_diff > 0:
+            elif tacho_diff > 0 and not self.sensors["touch_right"].get_sample():
                 self.steering_motor.turn(
                     power=-STEERING_POWER,
                     tacho_units=tacho_diff

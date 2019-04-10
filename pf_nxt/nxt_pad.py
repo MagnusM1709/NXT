@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pygame
-import thread
+import threading
 import time
 
 

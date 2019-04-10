@@ -56,7 +56,7 @@ class Pair(object):
 
         # Tries to pairs with bluetooth mac address.
         # If the string "Enter PIN Code" was recognized, break the pairing loop
-        for _ in xrange(0, 10):
+        for x in range(0, 10):
             try:
                 self.proc.sendline("pair " + self._baddr)
                 self.proc.expect("Enter PIN code", timeout=2)
